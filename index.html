@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpine.js Components</title>
+  
+  <!-- Alpine Plugins -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <!-- Alpine Core -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style type="text/tailwindcss">
+    @layer base {
+      h2 {
+        @apply text-lg font-semibold
+      }
+    }
+    @layer components {
+      .btn {
+        @apply py-2 p-6 bg-purple-600 hover:bg-opacity-80 text-white rounded-md shadow-md flex justify-between items-center;;
+      }
+    }
+    @layer utilities {
+    .scrollbar-purple {
+        scrollbar-color: #7c3aed #e9d5ff; /* Цвет ползунка и фона */
+        scrollbar-width: thin; /* Уменьшенная ширина */
+      }
+      .scrollbar-purple::-webkit-scrollbar {
+        height: 6px; /* Высота горизонтальной прокрутки */
+      }
+      .scrollbar-purple::-webkit-scrollbar-thumb {
+        background-color: #7c3aed; /* Цвет ползунка */
+        border-radius: 9999px; /* Закругление */
+      }
+      .scrollbar-purple::-webkit-scrollbar-track {
+        background-color: #e9d5ff; /* Цвет фона */
+      }
+    }    
+  </style>
+
+</head>
+<body class="bg-gray-100 p-8">
+
+  <!-- Dropdown -->
+  <div x-data="{open: false}" class="w-fit relative">
+    <button
+      @click="open=!open" 
+      class="btn pr-2"
+    >
+      Toggle
+
+      <svg 
+        class="h-4 w-4 ml-2 transition-transform duration-300"
+        :class="{'rotate-90': open}"
+        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+      </svg>
+                  
+    </button>
+    <ul 
+      x-show="open" 
+      @click.outside="open=false" 
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="transform scale-y-0 origin-top opacity-0"
+      x-transition:enter-end="transform scale-y-100 origin-top opacity-100"
+      x-transition:leave="transition ease-in duration-300"
+      x-transition:leave-start="transform scale-y-100 origin-top opacity-100"
+      x-transition:leave-end="transform scale-y-0 origin-top opacity-0"
+
+      class="bg-white w-fit min-w-full divide-y divide-gray-200 shadow-md rounded-b-md absolute z-1"
+    >
+      <li>
+        <a href="#" class="py-1 px-2 hover:bg-gray-100 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>          
+          Open
+        </a>
+      </li>
+      <li>
+        <a href="#" class="py-1 px-2 hover:bg-gray-100 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+          </svg>          
+          Edit
+        </a>
+      </li>
+      <li>
+        <a href="#" class="py-1 px-2 hover:bg-gray-100 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+          </svg>          
+          Delete
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- Modal -->
+  <div
+    x-data="{
+      open: false,
+      accept() {
+        console.log('accepted')
+      }
+    }" 
+    class="mt-8"
+  >
+    <button
+      @click="open=!open" 
+      class="btn"
+    >
+      Toggle modal
+    </button>
+    <template x-teleport="body">
+      <!-- backdrop -->
+      <div 
+        x-show="open"
+        class="bg-black/50 fixed flex justify-center items-center left-0 top-0 right-0 bottom-0 z-10"
+      >
+        <!-- dialog -->
+        <div 
+          x-show="open"
+          x-transition
+          @click.outside="open=false"          
+          class="bg-white rounded-xl shadow min-w-[250px] w-3/5 md:w-1/2 p-4 flex flex-col justify-between"
+        >
+          <!-- title -->
+          <div class="pb-2 pl-4 border-b border-gray-200 flex justify-between items-center">
+            <h2>Modal title</h2>
+            <button 
+              @click="open=false" 
+              class="btn px-2 bg-gray-300 text-gray-800"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>              
+            </button>
+          </div>
+          <!-- body -->
+          <div class="p-4">
+            Modal content
+          </div>
+          <!-- footer -->
+          <div class="flex justify-end gap-4 pt-2">
+            <button
+              @click="accept" 
+              class="btn bg-emerald-600"
+            >
+              Accept
+            </button>
+            <button
+              @click="open=false" 
+              class="btn bg-gray-400"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <!-- Tabs -->
+  <div 
+    x-data = "{ 
+      tabs: ['Home', 'Users', 'Settings'],
+      activeTab: 'Home'
+    }"
+    class="mt-8 max-w-[500px] "
+  >
+   
+    <div class="flex justify-start gap-1">
+      <template x-for="tab in tabs">
+        <div 
+          x-text="tab" 
+          @click="activeTab=tab"
+          class="py-1 px-3 bg-white border border-b-0 border-gray-300 rounded-t-md cursor-pointer"
+          :class="{'bg-gray-200 text-purple-600': activeTab === tab}"
+        ></div>
+      </template>
+    </div>
+
+    <div class="py-1 px-3 bg-white border border-gray-300 rounded-b-lg rounded-tr-lg shadow">
+      <div x-show="activeTab === 'Home'">
+        Home content
+        <br><br>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      </div>
+      <div x-show="activeTab === 'Users'">
+        Users content
+        <br><br>
+        Debitis soluta doloremque sed esse architecto, eveniet doloribus temporibus officia molestias unde nisi dolore officiis? Debitis soluta doloremque sed esse architecto, eveniet doloribus temporibus officia molestias unde nisi dolore officiis?
+      </div>
+      <div x-show="activeTab === 'Settings'">
+        Settings content
+        <br><br>
+        Enim officiis, nesciunt est ipsam voluptatum tempora! Enim officiis, nesciunt est ipsam voluptatum tempora! Enim officiis, nesciunt est ipsam voluptatum tempora!
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Carousel -->
+  <div
+    x-data="{
+      images: ['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg'],
+      activeImage: 0,
+      prev() {
+        const prevImage = this.activeImage-1;
+        this.activeImage = prevImage < 0 ? this.images.length-1 : prevImage;
+      },
+      next() {
+        const nextImage = this.activeImage+1;
+        this.activeImage = nextImage >= this.images.length ? 0 : nextImage;
+      },
+      setActiveImage(index) {
+        this.activeImage = index;
+      }
+    }"
+    class="max-w-[500px] mt-8"
+  >
+    <div class="flex items-center justify-center">
+      <div>
+        <svg 
+          @click="prev"
+          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+          class="text-purple-800 hover:text-purple-600 w-10 mr-4 cursor-pointer"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>      
+      </div>
+      <div>
+        <img 
+          :src="images[activeImage]" 
+        >
+      </div>
+      <div>
+        <svg 
+          @click="next"
+          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+          class="text-purple-800 hover:text-purple-600 w-10 ml-4 cursor-pointer"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>      
+      </div>
+    </div>
+    <div class="w-full flex gap-4 overflow-x-auto scrollbar-purple mt-4 pb-2">
+      <template x-for="(image, index) in images" :key="index">
+        <img 
+          :src="image" 
+          @click="setActiveImage(index)"
+          class="h-16 border cursor-pointer hover:border-purple-800 hover:border-2  "
+          :class="{'border-purple-800 border-2': activeImage === index}"
+        >
+      </template>
+    </div>
+  </div>
+
+  <!-- Accordion -->
+  <div 
+    x-data = "{ 
+      tabs: [
+        {name: 'Home', content: 'Home content'}, 
+        {name: 'Users', content: 'Users content'}, 
+        {name: 'Settings', content: 'Settings content'}, 
+      ],
+      activeTab: null
+    }"
+    class="mt-8 max-w-[500px] "
+  >   
+    <template x-for="(tab, index) in tabs" :key="index">
+      <div>
+        <div
+          @click="activeTab = activeTab === tab.name ? null : tab.name"
+          class="cursor-pointer border text-lg p-2 flex justify-between items-center"
+          :class="{
+            'border-purple-600 bg-gray-200 text-purple-600': activeTab === tab.name,
+            'rounded-t-md': index === 0
+          }"
+        >
+          <span x-text="tab.name"></span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"   stroke="currentColor" fill="none" stroke-width="2" 
+            class="h-5 w-5 shrink-0 transition" aria-hidden="true" 
+            :class="{'rotate-180': activeTab === tab.name}"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </div>
+        <div
+          x-show="activeTab === tab.name"
+          x-collapse.duration.500ms 
+          class="px-2 border"
+          :class="{
+            'border-purple-300': activeTab === tab.name,
+            'rounded-b-md': index === tabs.length-1
+          }"                        
+        >
+          <div
+            class="my-2" 
+            x-html="tab.content"
+          ></div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <!-- Notification -->
+  <div 
+    x-data="{
+      open: false,
+      timeout: 5000,
+      remainingTime: null,
+      remainingPercent: null,
+      timer: null,
+      setCloseTimeout() {
+        this.remainingTime = this.timeout;
+
+        let interval = setInterval(() => {
+          this.remainingTime -= 100;
+          if (this.remainingTime <= 0) {
+            clearInterval(interval);
+          }
+        }, 100);
+
+        this.timer = setTimeout(() => {
+          this.open = false;
+          clearInterval(interval);
+        }, this.timeout);
+      },
+      init() {
+        this.setCloseTimeout();
+        $watch('open', (value, old) => {
+          if (value) {
+            this.setCloseTimeout();
+          } else {
+            clearTimeout(this.timer);
+          }
+        });
+        $watch('remainingTime', value => {
+          this.remainingPercent = 100-(value/this.timeout)*100 + '%'
+        });
+      }
+    }"
+    class="max-w-[500px] mt-8"    
+  >
+    <button
+      x-show="!open"
+      @click="open=true" 
+      class="btn"      
+    >
+      Open Notification              
+    </button>
+    <div
+      x-show="open"
+      class="pt-2 pb-4 pl-4 pr-8 bg-emerald-500 text-white relative rounded-md"
+    >
+      <div
+        class="absolute top-2 right-2 text-center z-1"
+      >
+        <button 
+          @click="open=false"
+          class="w-7 h-7 rounded-full hover:bg-black/10 transition p-1"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>      
+        </button>
+        <p 
+          x-show="remainingTime && false" 
+          x-text="remainingTime/1000"
+          class="text-white/60"
+        ></p>
+      </div>
+      <div class="font-semibold mb-2">
+        Lorem ipsum dolor sit am et 
+      </div>
+      <div class="text-sm">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat explicabo praesentium, unde laudantium aperiam facere reprehenderit officiis enim esse dolores magni excepturi ab nulla alias, recusandae quis modi, expedita nostrum.
+      </div>
+      <!-- Progress -->
+      <div class="">
+        <div 
+          class="absolute left-0 right-0 bottom-2 h-1 bg-black/20"
+          :style="{width: remainingPercent}"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popover -->
+  <div 
+    x-data="{
+      open: false,
+      title: 'Title popover',
+      message: 'Popover <b>message</b> etc.'
+    }"
+    class="w-fit max-w-[500px] mt-8 relative"
+  >
+    <div 
+      x-show="open"
+      class="bg-white w-max border rounded-md p-4 absolute z-10 bottom-14 left-0 shadow left-1/2 transform -translate-x-1/2"
+    >
+    <div 
+      class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"
+    ></div>
+
+      <div 
+        x-text="title"
+        class="border-b font-semibold mb-2"
+      ></div>
+      <div 
+        x-html="message"
+        class="text-sm"
+      >
+      </div>
+    </div>
+
+    <button
+      @mouseenter="open=true" 
+      @mouseout="open=false" 
+      class="btn"      
+    >
+      Hover to Popover              
+    </button>
+  </div>
+
+</body>
+</html>
